@@ -1,4 +1,4 @@
-package com.playspring.backend;
+package com.playspring.backend.controllers;
 
 public class CParms {
     private String a, b;

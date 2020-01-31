@@ -1,4 +1,4 @@
-package com.playspring.backend;
+package com.playspring.backend.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 
 @Controller
 public class HomeController {
@@ -40,7 +38,7 @@ public class HomeController {
 
     @GetMapping("/json")
     @ResponseBody
-    public Map<String, String> heyJson(){
+    public Map<String, String> heyJson() {
         Map<String, String> response = new HashMap<>();
         response.put("name", "John Doe");
         return response;
