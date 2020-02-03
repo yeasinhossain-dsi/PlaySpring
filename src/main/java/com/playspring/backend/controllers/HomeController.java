@@ -1,6 +1,8 @@
 package com.playspring.backend.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +40,16 @@ public class HomeController {
 
     @GetMapping("/json")
     @ResponseBody
-    public Map<String, String> heyJson() {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, Object> heyJson() {
+        Map<String, Object> response = new HashMap<>();
         response.put("name", "John Doe");
+
+        List list = new ArrayList<>();
+        list.add("Terminator");
+        list.add("Black Hawk Down");
+
+        response.put("Movies", list);
+
         return response;
     }
 
