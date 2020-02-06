@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api").hasRole("ADMIN").antMatchers("/").permitAll().and().formLogin();
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/api").hasRole("ADMIN").antMatchers("/").permitAll().and().formLogin();        
     }
 
     @Bean

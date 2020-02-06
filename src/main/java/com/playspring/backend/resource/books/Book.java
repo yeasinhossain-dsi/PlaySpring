@@ -1,16 +1,24 @@
 package com.playspring.backend.resource.books;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "books")
 public class Book {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     int id;
+    
+    @NotNull
     String book_name;
+    @NotNull
     String author_name;
 
     public Book() {
@@ -45,5 +53,12 @@ public class Book {
     public void setAuthor_name(String author_name) {
         this.author_name = author_name;
     }
+
+    @Override
+    public String toString() {
+        return "Book [author_name=" + author_name + ", book_name=" + book_name + ", id=" + id + "]";
+    }
+
+    
 
 }
