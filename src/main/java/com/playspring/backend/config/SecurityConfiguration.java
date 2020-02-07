@@ -13,12 +13,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("000000").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/api").hasRole("ADMIN").antMatchers("/").permitAll().and().formLogin();        
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/").permitAll().antMatchers("/api/**")
+                .hasRole("ADMIN").antMatchers("/namedParams/**").hasRole("USER").and().formLogin();
     }
 
     @Bean
