@@ -1,5 +1,7 @@
 package com.playspring.backend.resource.books;
 
+import com.playspring.backend.resource.publication.Publication;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     int id;
     
     @NotNull
@@ -30,10 +32,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String book_name, String author_name) {
+    public Book(int id, String book_name, String author_name, Publication publication) {
         this.id = id;
         this.book_name = book_name;
         this.author_name = author_name;
+        this.publication = publication;
     }
 
     public int getId() {

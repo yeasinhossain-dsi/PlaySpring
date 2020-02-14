@@ -1,21 +1,21 @@
-package com.playspring.backend.resource.books;
+package com.playspring.backend.resource.publication;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Publication{
 
-
     @Id
-    int id;
-    String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private String name;
 
-    public Publication() {
-    }
+    public Publication() {}
 
-    public Publication(int id, String name) {
-        this.id = id;
+    public Publication(String name) {
         this.name = name;
     }
 
@@ -34,5 +34,4 @@ public class Publication{
     public void setName(String name) {
         this.name = name;
     }
-
 }
