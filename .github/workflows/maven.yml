@@ -33,14 +33,28 @@ jobs:
           password: ${{ secrets.STAGING_PASSWD }}
           port: ${{ secrets.STAGING_PORT }}
           script: |
-            cd ~/basicHTTP
-            screen -S backend -dm java -jar backend-0.0.1-SNAPSHOT.jar
+            PROJECT_DIR=~/basicHTTP
+            APP_JAR=backend-0.0.1-SNAPSHOT
+            cd $PROJECT_DIR
+
+            # Rename previous jar to old & currently uploaded jar to new
+            if ls $APP_JAR-new.jar; then
+              mv $APP_JAR-new.jar $APP_JAR-old.jar
+            else
+              mv $APP_JAR.jar $APP_JAR-new.jar
+            fi
+
+            # Run the screen & wait for 30 sec to be sure that the screen is running
+            screen -S backend -dm java -jar $APP_JAR-new.jar
             sleep 30
 
-            # If the screen doen not exist we need to rollback 
+            # If the screen doen not exist we need to rollback else remove the old jar & we are good to go
             if ! screen -list | grep -q "backend"; then
-              echo "Failed to run"
-              echo "Rollback"
+              echo "Failed to run, initiate rollback..."
+              rm -rf $APP_JAR-new.jar
+              mv $APP_JAR-old.jar $APP_JAR-new.jar
+              screen -S backend -dm java -jar $APP_JAR-new.jar
             else
               echo "Running successfully..."
+              rm -rf $APP_JAR-old.jar
             fi
