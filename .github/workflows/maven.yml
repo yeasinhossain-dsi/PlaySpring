@@ -21,7 +21,7 @@ jobs:
           host: ${{ secrets.STAGING_HOST }}
           username: ${{ secrets.STAGING_USER }}
           password: ${{ secrets.STAGING_PASSWD }}
-          port: ${{ secrets.PORT }}
+          port: ${{ secrets.STAGING_PORT }}
           source: "target/backend-0.0.1-SNAPSHOT.jar"
           target: "~/basicHTTP"
           strip_components: 1
