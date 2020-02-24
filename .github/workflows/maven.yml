@@ -1,7 +1,6 @@
 name: Java CI
 
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,3 +24,11 @@ jobs:
           source: "target/backend-0.0.1-SNAPSHOT.jar"
           target: "~/basicHTTP"
           strip_components: 1
+
+      - name: Run the application
+        run: |
+          screen  -S backend -dm java -jar backend-0.0.1-SNAPSHOT.jar
+          sleep 30
+
+      - name: Confirming successfull run
+        run: if ! screen -ls | grep backend; then  echo "Failed to run, initiate rollback..."; fi
