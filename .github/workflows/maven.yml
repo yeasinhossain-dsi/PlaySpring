@@ -25,10 +25,22 @@ jobs:
           target: "~/basicHTTP"
           strip_components: 1
 
-      - name: Run the application
-        run: |
-          screen  -S backend -dm java -jar backend-0.0.1-SNAPSHOT.jar
-          sleep 30
+      - name: Run the application else Rollback to previous version
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USER }}
+          password: ${{ secrets.STAGING_PASSWD }}
+          port: ${{ secrets.STAGING_PORT }}
+          script: |
+            cd ~/basicHTTP
+            screen -S backend -dm java -jar backend-0.0.1-SNAPSHOT.jar
+            sleep 30
 
-      - name: Confirming successfull run
-        run: if ! screen -ls | grep backend; then  echo "Failed to run, initiate rollback..."; fi
+            # If the screen doen not exist we need to rollback 
+            if ! screen -list | grep -q "backend"; then
+              echo "Failed to run"
+              echo "Rollback"
+            else
+              echo "Running successfully..."
+            fi
